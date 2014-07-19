@@ -22,7 +22,15 @@
     [Parse setApplicationId:@"mry8fmQJcWStpMIJzNljH7vQ0gO0ltNfQyxXtyDn"
                   clientKey:@"aQSymklXI04of6Y1PEQKummQTJwWRfHVyFTdzwVZ"];
     
-    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
+    UIApplication *app = [UIApplication sharedApplication];
+    if ([app respondsToSelector:@selector(registerForRemoteNotifications)]) {
+        UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        [app registerUserNotificationSettings:settings];
+        [app registerForRemoteNotifications];
+    } else {
+        [app registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
     
     return YES;
 }
