@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import <Parse/Parse.h>
 
 @interface ViewController ()
 
@@ -29,6 +30,13 @@
 - (IBAction)sendPush:(id)sender
 {
     NSLog(@"push");
+    // Send a notification to all devices subscribed to the "Giants" channel.
+    PFPush *push = [[PFPush alloc] init];
+    [push setChannel:@"all"];
+    [push setMessage:self.inputView.text];
+    [push sendPushInBackground];
+    
+    self.inputView.text = @"";
 }
 
 - (void)didReceiveMemoryWarning {

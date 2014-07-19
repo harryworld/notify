@@ -22,6 +22,12 @@
     [Parse setApplicationId:@"mry8fmQJcWStpMIJzNljH7vQ0gO0ltNfQyxXtyDn"
                   clientKey:@"aQSymklXI04of6Y1PEQKummQTJwWRfHVyFTdzwVZ"];
     
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation addUniqueObject:@"all" forKey:@"channels"];
+    [currentInstallation saveInBackground];
+    
     UIApplication *app = [UIApplication sharedApplication];
     if ([app respondsToSelector:@selector(registerForRemoteNotifications)]) {
         UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
