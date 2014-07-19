@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITextViewDelegate>
 
+@property (nonatomic, weak) IBOutlet UITextView *inputView;
+@property (nonatomic, weak) IBOutlet UIButton *sendButton;
+
+- (IBAction)sendPush:(id)sender;
 
 @end
 
